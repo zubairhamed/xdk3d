@@ -2,11 +2,13 @@ package main
 
 import (
 	"net/http"
+	"log"
 )
 
 func main() {
 	fs := http.FileServer(http.Dir("webapp"))
 	http.Handle("/", fs)
+	log.Println("Running from :8000. Ready to rock!")
 	http.ListenAndServe(":8000", nil)
 }
 
