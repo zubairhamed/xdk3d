@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-
     <title>WebGL 3D Model Viewer Using three.js</title>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="three.js"></script>
@@ -23,9 +21,6 @@
             padding: 0;
         }
 
-        a {
-            color: #f58231;
-        }
     </style>
 
 </head>
@@ -53,25 +48,21 @@
             }
         ];
 
-        var xdkObj;
-        var ptLights = [];
-
         if (!Detector.webgl) {
             Detector.addGetWebGLMessage();
         }
 
+        var xdkObj;
+        var ptLights = [];
+
         var container;
-
-
         var camera, controls, scene, renderer;
-        var lighting, ambient, keyLight, fillLight, backLight;
 
         var windowHalfX = window.innerWidth / 2;
         var windowHalfY = window.innerHeight / 2;
 
         init();
         animate();
-
 
         function init() {
             container = document.createElement('div');
@@ -114,7 +105,7 @@
             renderer = new THREE.WebGLRenderer({ antialias: true });
             renderer.setPixelRatio(window.devicePixelRatio);
             renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setClearColor(0xa0a0a0);
+            renderer.setClearColor(0xffffff);
 
             container.appendChild(renderer.domElement);
 
@@ -150,7 +141,27 @@
             renderer.render(scene, camera);
         }
 
+
+        // XDK Functions
+        function handleTemperature() {
+
+        }
+
+        function handleLED() {
+
+        }
+
+        function handleRotation() {
+
+        }
+
+        function handleLux() {
+
+        }
     </script>
+    <div>
+        <a>TEMP +</a>  <a>TEMP -</a>
+    </div>
 
 </body>
 </html>
