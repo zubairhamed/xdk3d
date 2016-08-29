@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="three.js"></script>
+    <script src="tween.js"></script>
     <script src="Detector.js"></script>
     <script src="OrbitControls.js"></script>
 
@@ -21,11 +22,26 @@
             padding: 0;
         }
 
+        #BtnTrans {
+            position: absolute;
+            x: 100;
+            y: 500;
+        }
     </style>
-
 </head>
 <body>
-
+    <div>
+        <button onclick="doShakeAround()" href="#">Shake it!</button>
+        <button onclick="doStopShakingAround()" href="#">Stop Shaking</button>
+        <br />
+        <button onclick="doWarmer()" href="#">+Warm</button>
+        <button onclick="doCooler()" href="#">+Cool</button>
+        <br />
+        <button onclick="doToggleLed(0)" href="#">LED0</button>
+        <button onclick="doToggleLed(1)" href="#">LED1</button>
+        <button onclick="doToggleLed(2)" href="#">LED2</button>
+        <button onclick="doToggleLed(3)" href="#">LED3</button>
+    </div>
     <script>
         // XDK
         var lightSources = [
@@ -53,6 +69,7 @@
         }
 
         var xdkObj;
+        var leds = [0,0,0,0];
         var ptLights = [];
 
         var container;
@@ -94,9 +111,27 @@
             spotLight.castShadow = true;
             scene.add(spotLight);
 
-
             var loader = new THREE.ObjectLoader();
             loader.load("model.json",function ( obj ) {
+                obj.traverse(function(o) {
+                    if (o.name == "Led0") {
+                        leds[0] = o
+                    } else
+                    if (o.name == "Led1") {
+                        leds[1] = o
+                    } else
+                    if (o.name == "Led2") {
+                        leds[2] = o
+                    } else
+                    if (o.name == "Led3") {
+                        leds[3] = o
+                    }
+                });
+                doToggleLed(0);
+                doToggleLed(1);
+                doToggleLed(2);
+                doToggleLed(3);
+
                 xdkObj = obj;
                 scene.add( xdkObj );
             });
@@ -120,7 +155,6 @@
         }
 
         function onWindowResize() {
-
             windowHalfX = window.innerWidth / 2;
             windowHalfY = window.innerHeight / 2;
 
@@ -128,7 +162,6 @@
             camera.updateProjectionMatrix();
 
             renderer.setSize(window.innerWidth, window.innerHeight);
-
         }
 
         function animate() {
@@ -140,7 +173,6 @@
         function render() {
             renderer.render(scene, camera);
         }
-
 
         // XDK Functions
         function handleTemperature() {
@@ -158,10 +190,67 @@
         function handleLux() {
 
         }
-    </script>
-    <div>
-        <a>TEMP +</a>  <a>TEMP -</a>
-    </div>
 
+        // Testing Functions
+        var shaking = false;
+        function doShakeAround() {
+            shaking = true;
+            handleShake();
+        }
+
+        var radX, radY, radZ = 0;
+        function handleShake() {
+
+        }
+
+        function doStopShakingAround() {
+            shaking = false;
+        }
+
+        function doWarmer() {
+            renderer.setClearColor(0xffcc66);
+            for (var i=0; i < ptLights.length; i++) {
+                pt = ptLights[i];
+                pt.color.setHex(0xffcc66)
+            }
+        }
+
+        function doCooler() {
+            renderer.setClearColor(0x80ccff);
+            for (var i=0; i < ptLights.length; i++) {
+                pt = ptLights[i];
+                pt.color.setHex(0x80ccff)
+            }
+        }
+
+        var ledState = [true, true, true, true];
+        function doToggleLed(led) {
+            var l = ledState[led];
+            var ledMesh = leds[led];
+
+            if (l) {
+                ledMesh.material.color.setHex(0x000000);
+                ledState[led] = false;
+            } else {
+                ledMesh.material.color.setHex(0xff0000);
+                ledState[led] = true;
+            }
+        }
+
+        // Test Functions
+        function doAnim(rad) {
+            val = Math.PI / (360/rad);
+            if (rad < 360) {
+                rad+=120;
+                setTimeout(function(){
+                    xdkObj.rotation.x = val;
+                    animate();
+                    doAnim(rad);
+                }, 80);
+            } else {
+                doAnim(0);
+            }
+        }
+    </script>
 </body>
 </html>
