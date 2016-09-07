@@ -23,19 +23,55 @@
         }
 
         .ovl {
-            width: 100px;
-            height: 100px;
+            width: 200px;
+            height: 130px;
             border: 2px solid red;
-            position: relative;
-            z-index: 1000;
+            position: absolute;
+            z-index: 999999999;
         }
 
-        .ovl .ovl-left {
-            left: 200px;
+        .ovl-left {
+            left: 150px;
         }
 
         .ovl-temperature {
+            top: 50px;
+        }
+
+        .ovl-light {
             top: 200px;
+        }
+
+        .ovl-pressure {
+            top: 350px;
+        }
+
+        .ovl-magnet {
+            top: 500px;
+        }
+
+        .ovl-icon {
+            position: relative;
+            width: 90px;
+            height: 90px;
+            left: 5px;
+            top: 5px;
+            border: 2px solid green;
+        }
+
+        .ovl-title {
+            position: relative;
+            top: 5px;
+            left: 5px;
+            font-size: 13px;
+        }
+
+        .ovl-value {
+            position: absolute;
+            left: 110px;
+            top: 30px;
+            font-weight: bold;
+            font-size: 40px;
         }
     </style>
 </head>
@@ -43,6 +79,32 @@
     <div>
         <button onclick="doFunc()" href="#">Do it!</button>
         <button onclick="doFunc2()" href="#">Do it Alt!</button>
+    </div>
+    <div id="glCanvas">
+        <div class="ovl ovl-temperature ovl-left">
+            <div class="ovl-icon ovl-icon-temperature"></div>
+            <div class="ovl-title">TEMPERATURE</div>
+            <div class="ovl-value">22.4</div>
+        </div>
+
+        <div class="ovl ovl-light ovl-left">
+            <div class="ovl-icon ovl-icon-light"></div>
+            <div class="ovl-title">LIGHT</div>
+            <div class="ovl-value">22.4</div>
+        </div>
+
+        <div class="ovl ovl-pressure ovl-left">
+            <div class="ovl-icon ovl-icon-pressure"></div>
+            <div class="ovl-title">PRESSURE</div>
+            <div class="ovl-value">22.4</div>
+        </div>
+
+        <div class="ovl ovl-magnet ovl-left">
+            <div class="ovl-icon ovl-icon-magnet"></div>
+            <div class="ovl-title">MAGNETOMETER</div>
+            <div class="ovl-value">22.4</div>
+        </div>
+
     </div>
     <script>
         // XDK
@@ -88,7 +150,9 @@
 
         function init() {
             container = document.createElement('div');
-            document.body.appendChild(container);
+            // document.body.appendChild(container);
+            console.log(document.getElementById("glCanvas"));
+            document.getElementById("glCanvas").appendChild(container);
 
             /* Camera */
             camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
@@ -246,11 +310,5 @@
             }
         }
     </script>
-
-    <div class="ovl ovl-temperature ovl-left">
-        <div class="ovl-icon"></div>
-        <div class="ovl-title">Temperature</div>
-        <div class="ovl-value">22.4</div>
-    </div>
 </body>
 </html>
