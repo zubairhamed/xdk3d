@@ -22,25 +22,27 @@
             padding: 0;
         }
 
-        #BtnTrans {
-            position: absolute;
-            x: 100;
-            y: 500;
+        .ovl {
+            width: 100px;
+            height: 100px;
+            border: 2px solid red;
+            position: relative;
+            z-index: 1000;
+        }
+
+        .ovl .ovl-left {
+            left: 200px;
+        }
+
+        .ovl-temperature {
+            top: 200px;
         }
     </style>
 </head>
 <body>
     <div>
-        <button onclick="doShakeAround()" href="#">Shake it!</button>
-        <button onclick="doStopShakingAround()" href="#">Stop Shaking</button>
-        <br />
-        <button onclick="doWarmer()" href="#">+Warm</button>
-        <button onclick="doCooler()" href="#">+Cool</button>
-        <br />
-        <button onclick="doToggleLed(0)" href="#">LED0</button>
-        <button onclick="doToggleLed(1)" href="#">LED1</button>
-        <button onclick="doToggleLed(2)" href="#">LED2</button>
-        <button onclick="doToggleLed(3)" href="#">LED3</button>
+        <button onclick="doFunc()" href="#">Do it!</button>
+        <button onclick="doFunc2()" href="#">Do it Alt!</button>
     </div>
     <script>
         // XDK
@@ -81,6 +83,9 @@
         init();
         animate();
 
+        var ambientLight;
+        var spotlight;
+
         function init() {
             container = document.createElement('div');
             document.body.appendChild(container);
@@ -103,10 +108,10 @@
                 ptLights.push(l);
             }
 
-            var ambientLight = new THREE.AmbientLight( 0xffffff, 0.5, 0 );
+            ambientLight = new THREE.AmbientLight( 0xffffff, 0.5, 0 );
             scene.add(ambientLight);
 
-            var spotLight = new THREE.SpotLight(0xffffff);
+            spotLight = new THREE.SpotLight(0xffffff);
             spotLight.position.set(-40, 60, -10);
             spotLight.castShadow = true;
             scene.add(spotLight);
@@ -174,39 +179,28 @@
             renderer.render(scene, camera);
         }
 
-        // XDK Functions
-        function handleTemperature() {
-
-        }
-
-        function handleLED() {
-
-        }
-
-        function handleRotation() {
-
-        }
-
-        function handleLux() {
-
-        }
-
         // Testing Functions
-        var shaking = false;
-        function doShakeAround() {
-            shaking = true;
-            handleShake();
+        function doFunc() {
+            camera.rotation.z += 1;
+        }
+
+        var idx = 0;
+        var TEMPERATURE_COLORS = [
+
+        ];
+
+        var idx = 0;
+        function doFunc2() {
+            var l = idx;
+            ambientLight.intensity = l/2;
+            for (var i=0; i < ptLights.length; i++) {
+                var pt = ptLights[i];
+                pt.intensity = l;
+            }
+            idx += 0.1;
         }
 
         var radX, radY, radZ = 0;
-        function handleShake() {
-
-        }
-
-        function doStopShakingAround() {
-            shaking = false;
-        }
-
         function doWarmer() {
             renderer.setClearColor(0xffcc66);
             for (var i=0; i < ptLights.length; i++) {
@@ -252,5 +246,11 @@
             }
         }
     </script>
+
+    <div class="ovl ovl-temperature ovl-left">
+        <div class="ovl-icon"></div>
+        <div class="ovl-title">Temperature</div>
+        <div class="ovl-value">22.4</div>
+    </div>
 </body>
 </html>
