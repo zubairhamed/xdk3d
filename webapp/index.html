@@ -25,13 +25,16 @@
         .ovl {
             width: 200px;
             height: 130px;
-            border: 2px solid red;
             position: absolute;
             z-index: 999999999;
         }
 
         .ovl-left {
             left: 150px;
+        }
+
+        .ovl-right {
+            right: 150px;
         }
 
         .ovl-temperature {
@@ -50,13 +53,60 @@
             top: 500px;
         }
 
+        .ovl-connectivity {
+            top: 50px;
+        }
+
+        .ovl-accelerometer {
+            top: 200px;
+        }
+
+        .ovl-gyroscope {
+            top: 350px;
+        }
+
+        .ovl-humidity {
+            top: 500px;
+        }
+
         .ovl-icon {
             position: relative;
             width: 90px;
             height: 90px;
             left: 5px;
             top: 5px;
-            border: 2px solid green;
+        }
+
+        .ovl-icon-pressure {
+            background-image: url(images/icon-barometer.png);
+        }
+
+        .ovl-icon-temperature {
+            background-image: url(images/icon-temperature.png);
+        }
+
+        .ovl-icon-light {
+            background-image: url(images/icon-light.png);
+        }
+
+        .ovl-icon-magnet {
+            background-image: url(images/icon-magnet.png);
+        }
+
+        .ovl-icon-connectivity {
+            background-image: url(images/icon-wifi.png);
+        }
+
+        .ovl-icon-accelerometer {
+            background-image: url(images/icon-acc.png);
+        }
+
+        .ovl-icon-gyroscope {
+            background-image: url(images/icon-gyro.png);
+        }
+
+        .ovl-icon-humidity {
+            background-image: url(images/icon-humidity.png);
         }
 
         .ovl-title {
@@ -64,6 +114,7 @@
             top: 5px;
             left: 5px;
             font-size: 13px;
+            display: none;
         }
 
         .ovl-value {
@@ -102,6 +153,31 @@
         <div class="ovl ovl-magnet ovl-left">
             <div class="ovl-icon ovl-icon-magnet"></div>
             <div class="ovl-title">MAGNETOMETER</div>
+            <div class="ovl-value">22.4</div>
+        </div>
+
+        <!-- Right -->
+        <div class="ovl ovl-connectivity ovl-right">
+            <div class="ovl-icon ovl-icon-connectivity"></div>
+            <div class="ovl-title">WIFI</div>
+            <div class="ovl-value">22.4</div>
+        </div>
+
+        <div class="ovl ovl-accelerometer ovl-right">
+            <div class="ovl-icon ovl-icon-accelerometer"></div>
+            <div class="ovl-title">ACCELEROMETER</div>
+            <div class="ovl-value">22.4</div>
+        </div>
+
+        <div class="ovl ovl-gyroscope ovl-right">
+            <div class="ovl-icon ovl-icon-gyroscope"></div>
+            <div class="ovl-title">GYROSCOPE</div>
+            <div class="ovl-value">22.4</div>
+        </div>
+
+        <div class="ovl ovl-humidity ovl-right">
+            <div class="ovl-icon ovl-icon-humidity"></div>
+            <div class="ovl-title">HUMIDITY</div>
             <div class="ovl-value">22.4</div>
         </div>
 
