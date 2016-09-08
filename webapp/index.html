@@ -17,6 +17,10 @@
             background: #a0a0a0;
         }
 
+        #glCanvas {
+            position: relative;
+        }
+
         p {
             margin: 0;
             padding: 0;
@@ -279,6 +283,7 @@
 
                 xdkObj = obj;
                 scene.add( xdkObj );
+                onWindowResize();
             });
 
             /* Renderer */
