@@ -1,0 +1,14 @@
+                        var tweenPos = { x: 0, y: 0, z: 0};
+                        var tweenTarget = { x: (Math.PI / 180) * x, y: (Math.PI / 180) * y, z: (Math.PI / 180) * z }
+
+                        var tween = new TWEEN.Tween(tweenPos).to(tweenTarget, 100);
+                        tween.onUpdate(function() {
+                            $scope.xdkObj.rotation.x += tweenPos.x;
+                            $scope.xdkObj.rotation.y += tweenPos.y;
+                            $scope.xdkObj.rotation.z += tweenPos.z;
+                        });
+                        tween.start();
+
+function animate() {
+	TWEEN.update();
+}
